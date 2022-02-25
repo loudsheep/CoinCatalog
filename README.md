@@ -7,7 +7,7 @@ It's my own coin catalog for keeping track of
 - tile view
 
 # Table view
-[table view](https://github.com/loudsheep/CoinCatalog/blob/master/assets/screen1.jpg)
+![table view](https://github.com/loudsheep/CoinCatalog/blob/master/assets/screen1.jpg)
 
 Table has 5 comlumns:
 - id
@@ -19,12 +19,12 @@ Table has 5 comlumns:
 Also you can sort by all of these columns when clicked on table header.
 
 # Tile view
-[tile view](https://github.com/loudsheep/CoinCatalog/blob/master/assets/screen3.jpg)
+![tile view](https://github.com/loudsheep/CoinCatalog/blob/master/assets/screen3.jpg)
 
 When in tile view, each coin is displayed as a seperate tile with image, name, type and year of release as additional information.
 
 # Adding new coin
-[adding coin](https://github.com/loudsheep/CoinCatalog/blob/master/assets/screen2.jpg)
+![adding coin](https://github.com/loudsheep/CoinCatalog/blob/master/assets/screen2.jpg)
 
 When adding new coin these informations are necessary:
 - name
