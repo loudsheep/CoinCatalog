@@ -1,0 +1,62 @@
+.searchBox {
+    width: 30vw;
+    min-width: 300px;
+    min-height: 200px;
+    background-color: #dfdfdf;
+    color: #ffffff;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin: 1em auto;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    line-height: 50px;
+}
+
+.searchBox>input {
+    vertical-align: 50%;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    height: 1.5rem;
+    width: 80%;
+    background-color: #f0f0f0;
+    padding: 5px;
+    transition: 0.5s;
+}
+
+.searchBox>input:focus {
+    outline: none;
+    border: 1px solid #002633;
+}
+
+.searchBox>select {
+    vertical-align: 50%;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    height: 2.25rem;
+    width: 80%;
+    background-color: #f0f0f0;
+    padding: 5px;
+    transition: 0.5s;
+}
+
+.searchBox>select:focus {
+    outline: none;
+    border: 1px solid #002633;
+}
+
+.searchBox>input[type=submit] {
+    vertical-align: 50%;
+    border-radius: 5px;
+    width: 80%;
+    height: 2.25rem;
+    text-align: center;
+    padding: 0;
+    transition: 0.5s;
+}
+
+.searchBox>input[type=submit]:hover {
+    background-color: #002633;
+    color: #ffffff;
+}

@@ -1,0 +1,122 @@
+.content > form{
+    width: 60%;
+    min-width: 500px;
+    min-height: 80vh;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.image {
+    width: 45%;
+    min-width: 300px;
+    height: 95%;
+    margin: 0;
+    padding: 10px;
+}
+
+.image img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.file-name {
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.file-name input {
+    height: 40px;
+    width: 100%;
+    font-size: 1em;
+    padding: 0 0 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.25s;
+}
+
+.file-name input[type="file"] {
+    height: 40px;
+    width: 100%;
+    font-size: 1em;
+    padding: 0 0 0 10px;
+    border: none;
+    outline: none;
+    transition: 0.25s;
+}
+
+.add-form {
+    width: 45%;
+    min-width: 300px;
+    height: 95%;
+    margin: 0;
+    padding: 10px;
+}
+
+.add-form form {
+    width: 100%;
+}
+
+.field {
+    flex: 1;
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    margin-bottom: 2px;
+}
+
+.field input {
+    height: 40px;
+    width: 100%;
+    font-size: 1em;
+    padding: 0 0 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.25s;
+}
+
+.field input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: #002633;
+    color: #ffffff;
+}
+
+.field select {
+    height: 40px;
+    width: 100%;
+    font-size: 1em;
+    padding: 0 0 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.double-field {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;    
+}
+
+.name-details>.field:first-child {
+    margin-right: 5px;
+}
+
+.name-details>.field:last-child {
+    margin-left: 5px;
+}

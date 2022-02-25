@@ -1,0 +1,261 @@
+.content {
+    width: 100%;
+    background-color: #f2f2f2;
+    color: #333333;
+    /* font-size: 1.5em; */
+    /* font-weight: bold; */
+    text-align: center;
+    margin: 0 0 50px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBox {
+    width: 85%;
+    min-height: 50%;
+    background-color: #dfdfdf;
+    color: #ffffff;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin: 1em auto;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    line-height: 50px;
+}
+
+.searchBox>input {
+    vertical-align: 50%;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    height: 1.5rem;
+    width: 250px;
+    background-color: #f0f0f0;
+    padding: 5px;
+    transition: 0.5s;
+}
+
+.searchBox>input:focus {
+    outline: none;
+    border: 1px solid #002633;
+}
+
+.searchBox>select {
+    vertical-align: 50%;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    height: 2.25rem;
+    min-width: 100px;
+    background-color: #f0f0f0;
+    padding: 5px;
+    transition: 0.5s;
+}
+
+.searchBox>select:focus {
+    outline: none;
+    border: 1px solid #002633;
+}
+
+.searchBox>input[type=submit] {
+    vertical-align: 50%;
+    border-radius: 5px;
+    width: 150px;
+    height: 2.25rem;
+    text-align: center;
+    padding: 0;
+    transition: 0.5s;
+    /* background-color: rgb(110, 110, 223); */
+    /* color: #ffffff; */
+}
+
+.searchBox>input[type=submit]:hover {
+    background-color: #002633;
+    color: #ffffff;
+}
+
+.monety-table {
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+td, th {
+    height: 2em;
+}
+
+th {
+    color: #333333;
+}
+
+.monety-table tr:hover {
+    /* cursor: pointer; */
+    color: #b90000;
+    background: linear-gradient(rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.1));
+}
+
+th:hover {
+    cursor: pointer;
+    color: #b90000;
+}
+
+.td-justify {
+    text-align: justify;
+}
+
+.darker-row {
+    background-color: #e4e4e4;
+}
+
+
+.coin {
+    width: 19%;
+    height: 20vh;
+    background-color: red;
+    background-color: rgb(231, 231, 231);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+@keyframes showdropdown {
+    0% {
+        opacity: 0;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 95%;
+    /* top: 25vh; */
+    background-color: #ffffff;
+    width: 100%;
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation-name: showdropdown;
+    animation-duration: 0.5s;
+}
+
+.dropdown-content table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: center;
+}
+
+.td-left {
+    text-align: left;
+    /* text should be bold */
+    font-weight: 700;
+}
+
+.td-right {
+    text-align: right;
+}
+
+.dropdown-content table tr:hover {
+    color: #b90000;
+    cursor: pointer;
+}
+
+#tiles {
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile {
+    background-color: red;
+    width: 19%;
+    min-width: 250px;
+    height: 25vh;
+    margin: 15px;
+    padding: 10px;
+
+    background-color: #ffffff;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 5px;
+    transition: 0.25s;
+}
+
+.tile:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* .tile:hover .dropdown {
+    display: block;
+} */
+
+.tile-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.tile-title {
+    font-size: 1.25em;
+    font-weight: bold;
+    color: #333333;
+    max-height: 2.5em;
+}
+
+.tile-image {
+    height: 50%;
+    /* width: 100%; */
+    margin: 5px;
+    /* background-size: cover; */
+    /* background-position: center; */
+    /* background-repeat: no-repeat; */
+}
+
+.tile-image>img {
+    height: 100%;
+    /* object-fit: cover; */
+}
