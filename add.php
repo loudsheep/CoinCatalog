@@ -13,6 +13,7 @@
 
     <?php
     require_once 'DB_DETAILS.php';
+    session_start();
 
     error_reporting(0);
     $conn = @new mysqli($DB_ADDRESS, $DB_USER, $DB_PASSWORD, $DB_NAME);
@@ -36,17 +37,32 @@
         </div>
 
         <div class="content">
-            <form method="POST" action="addCoin.php">
-            <div class="image">
-                <img src="icons/upload.png" alt="add" id="add-image">
-                <div class="file-name">
-                    <input type="text" name="image" id="image-url" placeholder="URL grafiki"><br>
-                    <input type="file" id="image-file" name="image" accept="image/png, image/jpeg">
-                </div>
-            </div>
 
-            <div class="add-form">
-                <!-- <form method="POST" action="addCoin.php"> -->
+            <?php
+            if (isset($_SESSION['error']) && $_SESSION['error'] != "") {
+                echo '<div class="error">' . $_SESSION['error'] . '</div>';
+                unset($_SESSION['error']);
+            }
+            ?>
+            <!-- <div class="error">
+                
+            </div> -->
+
+            <form method="POST" action="addCoin.php">
+                <div class="image">
+                    <div class="add-image">
+                        <img src="icons/upload.png" alt="add" id="add-image">
+                    </div>
+                    <div class="file-name">
+                        <input type="text" id="image-url" name="image" placeholder="URL grafiki"><br>
+                        <!-- <input type="file" id="image-file" accept="image/png, image/jpeg"> -->
+                    </div>
+
+                    <!-- <input style="display: none;" type="hidden" name="image" id="image-hidden"> -->
+                </div>
+
+                <div class="add-form">
+                    <!-- <form method="POST" action="addCoin.php"> -->
                     <div class="field">
                         <label>Nazwa</label>
                         <input type="text" name="name" id="name" placeholder="Nazwa monety" autocomplete="off" required>
@@ -101,7 +117,7 @@
                             $sql = "SELECT DISTINCT(type) FROM info";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
-                                echo "<select name='type'>";
+                                echo "<select id='type_select'>";
                                 while ($row = $result->fetch_assoc()) {
                                     echo "<option value='" . $row['type'] . "'>" . $row['type'] . "</option>";
                                 }
@@ -112,8 +128,9 @@
 
                         <div class="field" style="display:none;" id="type-text">
                             <label>Typ monety</label>
-                            <input type="text" name="type" placeholder="Typ monety" autocomplete="off">
+                            <input type="text" id="type_input" placeholder="Typ monety" autocomplete="off">
                         </div>
+                        <input type="hidden" name="type" id='type-hidden'>
 
                         <div class="field">
                             <label>Inna</label>
@@ -126,8 +143,8 @@
                         <input type="submit" value="Dodaj monetę" id="submit">
                     </div>
 
-                <!-- </form> -->
-            </div>
+                    <!-- </form> -->
+                </div>
             </form>
         </div>
     </div>
@@ -137,26 +154,40 @@
             if (document.getElementById("type-text").style.display == 'none') {
                 document.getElementById("type-text").style.display = "block";
                 document.getElementById("type-select").style.display = "none";
+                document.getElementById("type-hidden").value = document.getElementById("type_input").value;
+                console.log(document.getElementById("type-hidden").value);
             } else {
                 document.getElementById("type-select").style.display = "block";
                 document.getElementById("type-text").style.display = "none";
+                document.getElementById("type-hidden").value = document.getElementById("type_select").value;
+                console.log(document.getElementById("type-hidden").value);
             }
         };
 
-        document.getElementById("image-url").addEventListener('input', showImageURL);
-        document.getElementById("image-file").onchange = showImageFile;
-
-        function showImageURL() {
-            document.getElementById("add-image").src = document.getElementById("image-url").value;
+        // on document load check if type is selected
+        if (document.getElementById("type-checkbox").checked) {
+            document.getElementById("type-text").style.display = "block";
+            document.getElementById("type-select").style.display = "none";
+            document.getElementById("type-hidden").value = document.getElementById("type_input").value;
+            console.log(document.getElementById("type-hidden").value);
+        } else {
+            document.getElementById("type-select").style.display = "block";
+            document.getElementById("type-text").style.display = "none";
+            document.getElementById("type-hidden").value = document.getElementById("type_select").value;
+            console.log(document.getElementById("type-hidden").value);
         }
 
-        function showImageFile() {
-            var file = document.getElementById("image-file").files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById("add-image").src = e.target.result;
-            };
-            reader.readAsDataURL(file);
+        document.getElementById('type_select').onchange = function() {
+            document.getElementById('type-hidden').value = document.getElementById('type_select').value;
+        };
+
+        document.getElementById('type_input').onchange = function() {
+            document.getElementById('type-hidden').value = document.getElementById('type_input').value;
+        };
+
+        document.getElementById("image-url").addEventListener('input', showImageURL);
+        function showImageURL() {
+            document.getElementById("add-image").src = document.getElementById("image-url").value;
         }
     </script>
 
