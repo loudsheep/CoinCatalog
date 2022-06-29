@@ -15,6 +15,12 @@
 }
 
 .searchBox {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
     width: 85%;
     min-height: 50%;
     background-color: #dfdfdf;
@@ -23,14 +29,13 @@
     font-weight: bold;
     text-align: center;
     margin: 1em auto;
-    padding: 10px;
+    padding: 15px;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     line-height: 50px;
 }
 
-.searchBox>input {
-    vertical-align: 50%;
+.searchBox>input[type=number], input[type=text] {
     border: 1px solid #cccccc;
     border-radius: 5px;
     height: 1.5rem;
@@ -38,6 +43,7 @@
     background-color: #f0f0f0;
     padding: 5px;
     transition: 0.5s;
+    margin-left: 5px;
 }
 
 .searchBox>input:focus {
@@ -46,7 +52,6 @@
 }
 
 .searchBox>select {
-    vertical-align: 50%;
     border: 1px solid #cccccc;
     border-radius: 5px;
     height: 2.25rem;
@@ -54,6 +59,7 @@
     background-color: #f0f0f0;
     padding: 5px;
     transition: 0.5s;
+    margin-left: 5px;
 }
 
 .searchBox>select:focus {
@@ -62,7 +68,6 @@
 }
 
 .searchBox>input[type=submit] {
-    vertical-align: 50%;
     border-radius: 5px;
     width: 150px;
     height: 2.25rem;
@@ -71,11 +76,23 @@
     transition: 0.5s;
     /* background-color: rgb(110, 110, 223); */
     /* color: #ffffff; */
+    margin-left: 5px;
+    outline: none;
+    border: 1px solid #cccccc;
 }
 
 .searchBox>input[type=submit]:hover {
     background-color: #002633;
     color: #ffffff;
+}
+
+.view-icons {
+    height: 20px;
+    /* margin-left: 10px; */
+    padding: 3px;
+    cursor: pointer;
+    /* border: 1px solid black;
+    border-radius: 6px; */
 }
 
 .monety-table {
@@ -106,7 +123,7 @@ th {
 }
 
 th:hover {
-    cursor: pointer;
+    /* cursor: pointer; */
     color: #b90000;
 }
 
@@ -189,7 +206,6 @@ th:hover {
 
 .dropdown-content table tr:hover {
     color: #b90000;
-    cursor: pointer;
 }
 
 #tiles {

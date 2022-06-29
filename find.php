@@ -25,10 +25,21 @@
     error_reporting(0);
     $conn = @new mysqli($DB_ADDRESS, $DB_USER, $DB_PASSWORD, $DB_NAME);
     if ($conn->connect_error) {
-        echo "<span style='font-size:32px; width:150px; margin-left:45%;'>Błąd podczas łączenia z serwerem</span>";
+        echo "<span style='font-size:32px; width:150px; margin-left:45%;'>Błąd podczas łączenia z serwerem" . $conn->connect_error ."</span>";;
         exit();
     }
     $conn->query("SET NAMES utf8");
+
+    if (isset($_POST["view"])) {
+        // if ($_POST["view"] == "tiles") {
+        //     $view = "tiles";
+        // } else if ($_POST["view"] == "list") {
+        //     $view = "list";
+        // }
+        $view = $_POST["view"];
+    } else {
+        $view = "list";
+    }
     ?>
 
     <div class="container">
@@ -59,13 +70,17 @@
 
             <!-- generate selection and options from database -->
             <?php
-            $sql = "SELECT DISTINCT type FROM info";
+            $sql = "SELECT DISTINCT type FROM coins";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 echo "<select name='type' value='" . $_POST['amount'] . "'>";
                 echo "<option value>Typ monety</option>";
                 while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row["type"] . "'>" . $row["type"] . "</option>";
+                    if ($_POST["type"] == $row["type"]) {
+                        echo "<option value='" . $row["type"] . "' selected>" . $row["type"] . "</option>";
+                    } else {
+                        echo "<option value='" . $row["type"] . "'>" . $row["type"] . "</option>";
+                    }
                 }
                 echo "</select>";
             } else {
@@ -74,8 +89,14 @@
             ?>
 
             <input type="hidden" id="order" name="order" value="">
-            <input type="hidden" id="view" name="view" value="tiles">
+            <!-- <input type="hidden" id="view" name="view" value="tiles"> -->
             <input type="submit" value="Szukaj">
+
+            <input type="radio" name="view" id="tile-view" value="tiles" <?php if ($view == "tiles") echo "checked"; ?>>
+            <img src="icons/tile_view.png" alt="" class="view-icons" for="tile-view">
+
+            <input type="radio" name="view" id="list-view" value="list" <?php if ($view == "list") echo "checked"; ?>>
+            <img src="icons/list_view.png" alt="" class="view-icons" for="list-view">
 
         </form>
 
@@ -83,17 +104,11 @@
             <!-- if any of "name", "amount", "type" or "year" post variables are set then search data base using only those which are set -->
             <?php
 
-            $sql = "SELECT * FROM info WHERE ";
+            $sql = "SELECT * FROM coins WHERE ";
             $nameSet = isset($_POST["name"]) && $_POST["name"] != "";
             $amountSet = isset($_POST["amount"]) && $_POST["amount"] != "";
             $typeSet = isset($_POST["type"]) && $_POST["type"] != "";
             $yearSet = isset($_POST["year"]) && $_POST["year"] != "";
-
-            if (isset($_POST["view"])) {
-                $view  = $_POST["view"];
-            } else {
-                $view = "list";
-            }
 
             if ($nameSet) {
                 $sql .= "`name` LIKE '%" . $_POST["name"] . "%'";
@@ -128,7 +143,7 @@
             }
 
             if (!$nameSet && !$amountSet && !$typeSet && !$yearSet) {
-                $sql = "SELECT * FROM info";
+                $sql = "SELECT * FROM coins";
                 if (isset($_POST["order"]) && $_POST["order"] != "") {
                     $sql .= " ORDER BY `" . $_POST["order"] . "`";
                     if ($_POST["order"] == "year" || $_POST["order"] == "sztuki") {
@@ -139,6 +154,8 @@
 
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
+
+                // echo $result->num_rows . " znaleziono";
 
                 if ($view == "tiles") {
                     $i = 0;
@@ -177,22 +194,24 @@
                 }
                 echo "<td>" . $i . "</td>";
                 echo "<td class='td-justify'>" . $row["name"] . "</td>";
-                echo "<td>" . $row["sztuki"];
-                echo "</td>";
+                echo "<td>" . $row["sztuki"] . "</td>";
                 echo "<td>" . $row["type"] . "</td>";
                 echo "<td>" . $row["year"] . "</td>";
                 echo "</tr>";
-                echo "\n";
             }
 
             function tile($row)
             {
                 echo "<div class='tile dropdown'>";
                 echo "<div class='tile-content'>";
-                echo "<div class='tile-image'  onClick=order('id')>";
-                echo "<img src='" . $row["img"] . "'/>";
+                echo "<div class='tile-image'>";
+                if ($row["img"] == "" || !file_exists($row["img"])) {
+                    echo "<img src='icons/not_found.jpg'/>";
+                } else {
+                    echo "<img src='" . $row["img"] . "'/>";
+                }
                 echo "</div>";
-                echo "<div class='tile-title'  onClick=order('name')>" . $row["name"] . "</div>";
+                echo "<div class='tile-title'>" . $row["name"] . "</div>";
                 echo "<div class='tile-subtitle'>" . $row["type"] . "</div>";
                 echo "<div class='tile-subtitle'>" . $row["year"] . "</div>";
 
@@ -200,11 +219,11 @@
                 // echo "<p>Ilość: " . $row["sztuki"] . "</p>";
                 // echo "<p>Typ: " . $row["type"] . "</p>";
                 echo "<table>";
-                echo "<tr onClick=order('sztuki')><td class='td-left'>Ilość:</td><td class='td-right'>" . $row["sztuki"] . "</td>";
-                echo "<tr onClick=order('year')><td class='td-left'>Rok:</td><td class='td-right'>" . $row["year"] . "</td>";
-                echo "<tr onClick=order('type')><td class='td-left'>Typ:</td><td class='td-right'>" . $row["type"] . "</td>";
-                echo "<tr onClick=order('edge')><td class='td-left'>Rant:</td><td class='td-right'>" . $row["edge"] . "</td>";
-                echo "<tr onClick=order('naklad')><td class='td-left'>Nakład:</td><td class='td-right'>" . $row["naklad"] . "</td>";
+                echo "<tr><td class='td-left'>Ilość:</td><td class='td-right'>" . $row["sztuki"] . "</td>";
+                echo "<tr><td class='td-left'>Rok:</td><td class='td-right'>" . $row["year"] . "</td>";
+                echo "<tr><td class='td-left'>Typ:</td><td class='td-right'>" . $row["type"] . "</td>";
+                echo "<tr><td class='td-left'>Rant:</td><td class='td-right'>" . $row["edge"] . "</td>";
+                echo "<tr><td class='td-left'>Nakład:</td><td class='td-right'>" . $row["naklad"] . "</td>";
                 echo "</table>";
 
                 echo "</div>";
@@ -218,10 +237,6 @@
 
             ?>
         </div>
-
-        <!-- <div class="coin">
-            <h2>Moneta nazwa</h2>
-        </div> -->
     </div>
 </body>
 

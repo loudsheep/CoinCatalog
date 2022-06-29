@@ -38,7 +38,7 @@
         <form class="searchBox" action="find.php" , method="POST">
             <input name="name" type="text" placeholder="Nazwa monety">
             <?php
-            $sql = "SELECT MIN(`rok`) AS `minimum` FROM `spis`";
+            $sql = "SELECT MIN(`rok`) AS `minimum` FROM `coins`";
             $result = $conn->query($sql);
             $min = 0;
             if ($result->num_rows > 0) {
@@ -50,7 +50,7 @@
 
             <!-- generate selection and options from database -->
             <?php
-            $sql = "SELECT DISTINCT type FROM spis";
+            $sql = "SELECT DISTINCT type FROM coins";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 echo "<select name='type'>";

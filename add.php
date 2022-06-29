@@ -88,24 +88,24 @@
                     <div class="double-field">
                         <div class="field">
                             <label>Minimalna cena</label>
-                            <input type="number" name="min-price" id="min-price" min="0" placeholder="Min. cena" autocomplete="off" required>
+                            <input type="number" name="min-price" id="min-price" min="0" step="0.01" placeholder="Min. cena" autocomplete="off" required>
                         </div>
 
                         <div class="field">
                             <label>Cena (stan I)</label>
-                            <input type="number" name="price1" id="price1" placeholder="Cena (stan I)" autocomplete="off" required>
+                            <input type="number" name="price1" id="price1" min="0" step="0.01" placeholder="Cena (stan I)" autocomplete="off" required>
                         </div>
                     </div>
 
                     <div class="double-field">
                         <div class="field">
                             <label>Cena (stan II)</label>
-                            <input type="number" name="price2" id="price2" placeholder="Cena (stan II)" autocomplete="off" required>
+                            <input type="number" name="price2" id="price2" min="0" step="0.01" placeholder="Cena (stan II)" autocomplete="off" required>
                         </div>
 
                         <div class="field">
                             <label>Cena (stan III)</label>
-                            <input type="number" name="price3" id="price3" placeholder="Cena (stan III)" autocomplete="off" required>
+                            <input type="number" name="price3" id="price3" min="0" step="0.01" placeholder="Cena (stan III)" autocomplete="off" required>
                         </div>
                     </div>
 
@@ -114,7 +114,7 @@
                             <label>Typ monety</label>
 
                             <?php
-                            $sql = "SELECT DISTINCT(type) FROM info";
+                            $sql = "SELECT DISTINCT(type) FROM coins";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 echo "<select id='type_select'>";
@@ -186,6 +186,7 @@
         };
 
         document.getElementById("image-url").addEventListener('input', showImageURL);
+
         function showImageURL() {
             document.getElementById("add-image").src = document.getElementById("image-url").value;
         }

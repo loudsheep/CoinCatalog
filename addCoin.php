@@ -2,17 +2,17 @@
     session_start();
     require_once 'DB_DETAILS.php';
     // error_reporting(0);
-    $conn = new mysqli($DB_ADDRESS, $DB_USER, $DB_PASSWORD, "test");
+    $conn = new mysqli($DB_ADDRESS, $DB_USER, $DB_PASSWORD, $DB_NAME);
     if ($conn->connect_error) {
         $_SESSION['error'] = "Błąd podczas łączenia z serwerem";
         header("Location: add.php");
         exit();
     }
 
-    if(checkParam('name') || checkParam('naklad') || checkParam('year') || 
-        checkParam('edge') || checkParam('min-price') || checkParam('price1') || 
-        checkParam('price2') || checkParam('price3') || checkParam('type') || 
-        checkParam('image')) {
+    if(checkParam($_POST['name']) || checkParam($_POST['naklad']) || checkParam($_POST['year']) || 
+        checkParam($_POST['edge']) || checkParam($_POST['min-price']) || checkParam($_POST['price1']) || 
+        checkParam($_POST['price2']) || checkParam($_POST['price3']) || checkParam($_POST['type']) || 
+        checkParam($_POST['image'])) {
         $_SESSION['error'] = "Nie wszystkie pola zostały wypełnione";
         header("Location: add.php");
         exit();
@@ -32,9 +32,16 @@
 
     // add coin to database
     $conn->query("SET NAMES utf8");
-    $sql = "INSERT INTO `monety` (`name`, `naklad`, `edge`, `sztuki`, `type`, `stan1`, `stan2`, `stan3`, `min_cena`, `year`) 
-    VALUES (?, ?, ?, 0, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO `coins` (`name`, `naklad`, `edge`, `type`, `stan1`, `stan2`, `stan3`, `min_cena`, `year`) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
+
+    if($stmt == false) {
+        $_SESSION['error'] = "Błąd podczas tworzenia kwerendy";
+        header("Location: add.php");
+        exit();
+    }
+
     $stmt->bind_param("sissiiiii", $name, $naklad, $edge, $type, $stan1, $stan2, $stan3, $min_cena, $year);
     $stmt->execute();
 
@@ -47,13 +54,13 @@
     echo "Dodano monetę";
 
     // add image
-    $sql = "SELECT id FROM monety ORDER BY id DESC LIMIT 1;";
+    $sql = "SELECT id FROM coins ORDER BY id DESC LIMIT 1;";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $id = $row['id'];
-    $img_name = "img_test/". $id . ".jpg";
+    $img_name = "img\\". $id . ".jpg";
 
-    $sql = "UPDATE `monety` SET `img`=? WHERE `id`=$id";
+    $sql = "UPDATE `coins` SET `img`=? WHERE `id`=$id";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $img_name);
     $stmt->execute();
@@ -69,7 +76,7 @@
     echo "File downloaded!";
 
     function checkParam($param) {
-        if (isset($_POST[$param]) && $_POST[$param] != "") {
+        if (isset($param) && $param != "") {
             return false;
         } else {
             return true;
