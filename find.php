@@ -25,7 +25,7 @@
     error_reporting(0);
     $conn = @new mysqli($DB_ADDRESS, $DB_USER, $DB_PASSWORD, $DB_NAME);
     if ($conn->connect_error) {
-        echo "<span style='font-size:32px; width:150px; margin-left:45%;'>Błąd podczas łączenia z serwerem" . $conn->connect_error ."</span>";;
+        echo "<span style='font-size:32px; width:150px; margin-left:45%;'>Błąd podczas łączenia z serwerem" . $conn->connect_error . "</span>";;
         exit();
     }
     $conn->query("SET NAMES utf8");
@@ -50,7 +50,7 @@
                 <a href="index.php">Strona główna</a>
                 <a href="add.php">Dodaj monetę</a>
                 <a href="find.php">Znajdź monety</a>
-                <a href="about.php">O projekcie</a>
+                <a href="stats.php">Statystyki</a>
             </div>
         </div>
 
@@ -237,6 +237,11 @@
 
             ?>
         </div>
+    </div>
+
+    <!-- popup coin -->
+    <div class="form-popup" id="coinForm">
+        
     </div>
 </body>
 
