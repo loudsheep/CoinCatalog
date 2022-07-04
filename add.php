@@ -32,7 +32,7 @@
                 <a href="index.php">Strona główna</a>
                 <a href="add.php">Dodaj monetę</a>
                 <a href="find.php">Znajdź monety</a>
-                <a href="about.php">O projekcie</a>
+                <a href="stats.php">Statystyki</a>
             </div>
         </div>
 
