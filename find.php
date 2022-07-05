@@ -55,7 +55,7 @@
         </div>
 
         <form class="searchBox" method="post" action="find.php">
-            <input name="name" type="text" placeholder="Nazwa monety" value=<?php echo $_POST['name'] ?>>
+            <input name="name" type="text" placeholder="Nazwa monety" autocomplete="off" value=<?php echo $_POST['name'] ?>>
 
             <?php
             $sql = "SELECT MIN(`year`) AS `minimum` FROM `info`";

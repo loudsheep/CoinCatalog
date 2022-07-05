@@ -42,13 +42,39 @@
             </div>
         </div>
 
-
-        <!-- <div class="charts-row">
+        <div class="charts-row">
             <div class="canvas-container">
-                <canvas id="chart3"></canvas>
+                <canvas id="chart4"></canvas>
+                <span class="loading-span">Ładowanie...</span>
             </div>
-        </div> -->
 
+            <div class="canvas-container">
+                <canvas id="chart5"></canvas>
+                <span class="loading-span">Ładowanie...</span>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="chart6"></canvas>
+                <span class="loading-span">Ładowanie...</span>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="canvas-container">
+                <canvas id="chart7"></canvas>
+                <span class="loading-span">Ładowanie...</span>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="chart8"></canvas>
+                <span class="loading-span">Ładowanie...</span>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="chart9"></canvas>
+                <span class="loading-span">Ładowanie...</span>
+            </div>
+        </div>
     </div>
 
 
@@ -61,9 +87,17 @@
         oReq.onload = function() {
             let json = JSON.parse(this.responseText);
 
-            createPieChart1(json["type_count"]);
-            createPieChart2(json["coin_type_count"]);
-            createBarChart1(json["year_count"]);
+            // pie charts
+            createDoughnutChart(json["type_count"], chart1, "Ilość kategorii monet");
+            createDoughnutChart(json["coin_type_count"], chart2, "Ilość monet w każdej kategorii monet");
+            createDoughnutChart(json["stan1_value_count"], chart4, "Ilość monet w przedziałach cen STAN I");
+            createDoughnutChart(json["stan2_value_count"], chart5, "Ilość monet w przedziałach cen STAN II");
+            createDoughnutChart(json["stan3_value_count"], chart6, "Ilość monet w przedziałach cen STAN III");
+            createDoughnutChart(json["min_cena_value_count"], chart7, "Ilość monet w przedziałach cen MINIMALNA CENA");
+            createDoughnutChart(json["edge_count"], chart8, "Ilość różnych rantów monet");
+            
+            // bar charts
+            createBarChart(json["year_count"], chart3 ,'Ilość monet w każdym roku');
 
             for(let i of document.querySelectorAll(".loading-span")) {
                 i.style.display = "none";
@@ -71,33 +105,22 @@
         };
         oReq.open("get", "getStats.php", true);
         oReq.send();
-
-        let chart1 = document.getElementById("chart1").getContext('2d');
-        let chart2 = document.getElementById("chart2").getContext('2d');
-
-        function createPieChart1(json) {
-            var pieChart = new Chart(chart1, {
-                type: 'pie',
+        
+        function createDoughnutChart(json, chart, title) {
+            var pieChart = new Chart(chart, {
+                type: 'doughnut',
                 data: {
                     labels: Object.keys(json),
                     datasets: [{
-                        label: '# of Votes',
                         data: Object.values(json),
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            'rgba(255, 99, 132)',
+                            'rgba(54, 162, 235)',
+                            'rgba(153, 102, 255)',
+                            'rgba(255, 206, 86)',
+                            'rgba(75, 192, 192)',
+                            'rgba(255, 159, 64)',
+                            'rgba(132, 99, 180)',
                         ],
                         borderWidth: 1
                     }]
@@ -110,77 +133,22 @@
                         },
                         title: {
                             display: true,
-                            text: 'Ilość kategorii monet',
+                            text: title,
                         }
                     }
                 },
             });
         }
 
-        function createPieChart2(json) {
-            var pieChart = new Chart(chart2, {
-                type: 'pie',
-                data: {
-                    labels: Object.keys(json),
-                    datasets: [{
-                        label: '# of Votes',
-                        data: Object.values(json),
-                        backgroundColor: [
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 99, 132, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 99, 132, 1)',
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Ilość monet w każdej kategorii monet',
-                        }
-                    }
-                },
-            });
-        }
-
-        function createBarChart1(json) {
-            var barChart = new Chart(chart3, {
+        function createBarChart(json, chart, title) {
+            var barChart = new Chart(chart, {
                 type: 'bar',
                 data: {
                     labels: Object.keys(json),
                     datasets: [{
                         data: Object.values(json),
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            'rgba(54, 162, 235)',
                         ],
                         borderWidth: 1
                     }]
@@ -194,7 +162,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Ilość monet w każdym roku',
+                            text: title,
                         }
                     }
                 },
