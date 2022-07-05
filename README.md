@@ -37,3 +37,12 @@ When adding new coin these informations are necessary:
 - price fot III (lowest) condition
 - type (existing or new)
 - image (from url or local disk)
+
+# Statistics
+![adding coin](https://github.com/loudsheep/CoinCatalog/blob/master/assets/screen4.jpg)
+
+Stats include:
+- total number of coins in each category
+- number of coins in each year
+- number of coinst in each price range in I, II, III conditions
+- number of coins in each edge (side)
