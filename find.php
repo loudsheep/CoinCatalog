@@ -14,6 +14,19 @@
             document.getElementsByClassName("searchBox")[0].submit();
             console.log(order);
         }
+
+        function openPopupForm(image, id, nazwa, year, type, sztuki) {
+            document.getElementById("coinForm").style.display = "flex";
+            document.getElementById("coinFormImage").src = image;
+            document.getElementById("coinFormAmount").innerHTML = sztuki;
+            document.getElementById("coinFormName").innerHTML = nazwa;
+            document.getElementById("coinFormYear").innerHTML = year;
+            document.getElementById("coinFormType").innerHTML = type;
+        }
+
+        function closePopupForm() {
+            document.getElementById("coinForm").style.display = "none";
+        }
     </script>
 </head>
 
@@ -188,9 +201,9 @@
             function list_row($row, $i)
             {
                 if ($i % 2 == 0) {
-                    echo "<tr class='darker-row'>";
+                    echo "<tr class='darker-row' onclick='openPopupForm(\"" . $row["img"] . "\"," . $row["id"] . ",\"" . str_replace("\"", "\\\"", $row["name"]) . "\"," . $row["year"] . ",\"" . $row["type"] . "\"," . $row["sztuki"] . ")'>";
                 } else {
-                    echo "<tr>";
+                    echo "<tr onclick='openPopupForm(\"" . $row["img"] . "\"," . $row["id"] . ",\"" . str_replace("\"", "\\\"", $row["name"]) . "\"," . $row["year"] . ",\"" . $row["type"] . "\"," . $row["sztuki"] . ")'>";
                 }
                 echo "<td>" . $i . "</td>";
                 echo "<td class='td-justify'>" . $row["name"] . "</td>";
@@ -203,7 +216,7 @@
             function tile($row)
             {
                 echo "<div class='tile dropdown'>";
-                echo "<div class='tile-content'>";
+                echo "<div class='tile-content' onclick='openPopupForm(\"" . $row["img"] . "\"," . $row["id"] . ",\"" . str_replace("\"", "\\\"", $row["name"]) . "\"," . $row["year"] . ",\"" . $row["type"] . "\"," . $row["sztuki"] . ")'>";
                 echo "<div class='tile-image'>";
                 if ($row["img"] == "" || !file_exists($row["img"])) {
                     echo "<img src='icons/not_found.jpg'/>";
@@ -239,10 +252,16 @@
         </div>
     </div>
 
-    <!-- popup coin -->
-    <div class="form-popup" id="coinForm">
-        
-    </div>
+        <div class="form-popup" id="coinForm">
+            <div id="coinFormCloseBtn" onclick="closePopupForm()">X</div>
+            <img src="" id="coinFormImage"/>
+            <div id="coinFormData">
+                <b> Nazwa: </b> <span id="coinFormName"></span> <br>
+                <p>Ilość: <span id="coinFormAmount"></span></p>
+                <p>Typ: <span id="coinFormType"></span></p>
+                <p>Rok: <span id="coinFormYear"></span></p>
+            </div>
+        </div>
 </body>
 
 </html>

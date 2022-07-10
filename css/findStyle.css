@@ -275,3 +275,49 @@ th:hover {
     height: 100%;
     /* object-fit: cover; */
 }
+
+.form-popup {
+    display: none;
+    width: 26%;
+    min-width: 100px;
+    height: 20%;
+    min-height: 100px;
+    background-color: white;
+    border: 3px solid #afafaf;
+    z-index: 9;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -13%;
+    margin-top: -10%;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+#coinFormImage {
+    height: 75%;
+    margin: 5%;
+}
+
+#coinFormCloseBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: #afafaf;
+    border-bottom-left-radius: 5px;
+    border: 3px solid #afafaf;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#coinFormCloseBtn:hover {
+    background-color: #b90000;
+    border: 3px solid #b90000;
+}

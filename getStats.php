@@ -66,9 +66,15 @@ function addToArray(&$arr, $stan, $sztuki)
         return;
     }
 
-    if ($stan <= 5) {
+    if ($stan <= 1) {
         // $arr["0-10"] += 1;
-        checkIfInArrayAndAdd($arr, "0-5", $sztuki);
+        checkIfInArrayAndAdd($arr, "0-1", $sztuki);
+    } else if ($stan <= 3) {
+        // $arr["0-10"] += 1;
+        checkIfInArrayAndAdd($arr, "1-3", $sztuki);
+    }else if ($stan <= 5) {
+        // $arr["0-10"] += 1;
+        checkIfInArrayAndAdd($arr, "3-5", $sztuki);
     } else if ($stan <= 10) {
         // $arr["0-10"] += 1;
         checkIfInArrayAndAdd($arr, "5-10", $sztuki);
