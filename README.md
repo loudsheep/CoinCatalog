@@ -1,5 +1,5 @@
 # CoinCatalog
-It's my own coin catalog for keeping track of 
+It's my own coin catalog for keeping track of my coins
 
 
 ## It features two view styles

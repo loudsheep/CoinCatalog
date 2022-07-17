@@ -290,6 +290,7 @@ th:hover {
     left: 50%;
     margin-left: -13%;
     margin-top: -10%;
+    padding: 10px;
     flex-direction: row;
     /* justify-content: center; */
     align-items: center;
@@ -320,4 +321,8 @@ th:hover {
 #coinFormCloseBtn:hover {
     background-color: #b90000;
     border: 3px solid #b90000;
+}
+
+#update-coin-amount {
+    width: 50px;
 }

@@ -22,10 +22,30 @@
             document.getElementById("coinFormName").innerHTML = nazwa;
             document.getElementById("coinFormYear").innerHTML = year;
             document.getElementById("coinFormType").innerHTML = type;
+            document.getElementById("update-coint-submit").onclick = function() {
+                updateCoinAmount(id);
+            }
         }
 
         function closePopupForm() {
             document.getElementById("coinForm").style.display = "none";
+        }
+
+        function updateCoinAmount(id) {
+            var xhttp = new XMLHttpRequest();
+            var url = "updateCoin.php";
+            var params = `id=${id}&amount=${document.getElementById("update-coin-amount").value}`;
+            
+            xhttp.onreadystatechange = function() {
+                if (this.status == 200) {
+                    window.location.reload();
+                    console.log("Succes");
+                }
+            };
+
+            xhttp.open("POST", url, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(params);
         }
     </script>
 </head>
@@ -252,16 +272,21 @@
         </div>
     </div>
 
-        <div class="form-popup" id="coinForm">
-            <div id="coinFormCloseBtn" onclick="closePopupForm()">X</div>
-            <img src="" id="coinFormImage"/>
-            <div id="coinFormData">
-                <b> Nazwa: </b> <span id="coinFormName"></span> <br>
-                <p>Ilość: <span id="coinFormAmount"></span></p>
-                <p>Typ: <span id="coinFormType"></span></p>
-                <p>Rok: <span id="coinFormYear"></span></p>
+    <div class="form-popup" id="coinForm">
+        <div id="coinFormCloseBtn" onclick="closePopupForm()">X</div>
+        <img src="" id="coinFormImage" />
+        <div id="coinFormData">
+            <b> <span id="coinFormName"></span> </b> <br>
+            <p>Typ: <span id="coinFormType"></span></p>
+            <p>Rok: <span id="coinFormYear"></span></p>
+            <p>Ilość: <span id="coinFormAmount"></span></p>
+            
+            <div>
+                <input type="number" name="" id="update-coin-amount" value="0">
+                <input type="submit" value="Dodaj" id="update-coint-submit">
             </div>
         </div>
+    </div>
 </body>
 
 </html>
